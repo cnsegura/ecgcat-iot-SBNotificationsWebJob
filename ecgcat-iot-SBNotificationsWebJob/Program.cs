@@ -1,13 +1,9 @@
 ﻿using Microsoft.Azure.NotificationHubs;
-using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ecgcat_iot_SBNotificationsWebJob
 {
@@ -58,15 +54,18 @@ namespace ecgcat_iot_SBNotificationsWebJob
                 try
                 {
                     //receive messages from Agent Subscription
-                    message = agentSubscriptionClient.Receive();
+                    message = agentSubscriptionClient.Receive();           
+                       
                     if (message != null)
                     {
                         Console.WriteLine("\nReceiving message from AgentSubscription...");
-                        //Console.WriteLine(string.Format("Message received: Id = {0}, Body = {1}", message.MessageId, message.GetBody<string>()));
 
-                        //string messageBody = message.GetBody<string>();
-                        //toastMessage = toastMessage.Replace("{messagepayload}", messageBody);
-
+                        //The Storm bolt converts string to stream. Need to convert back.
+                        var stream = message.GetBody<Stream>();
+                        StreamReader reader = new StreamReader(stream);
+                        string messageBody = reader.ReadToEnd();
+                        
+                        toastMessage = toastMessage.Replace("{messagepayload}", messageBody);
                         //Send notification
                         SendNotificationAsync(toastMessage);
 
