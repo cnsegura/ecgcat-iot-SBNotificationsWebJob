@@ -49,6 +49,7 @@ namespace ecgcat_iot_SBNotificationsWebJob
 
             var toastMessage = @"<toast><visual><binding template=""ToastGeneric""><text id=""1"">{messagepayload}</text></binding></visual><actions><action activationType=""foreground"" content=""Details"" arguments=""details"" />< action activationType = ""background"" content = ""Attempt Fix"" arguments = ""attemptfix"" /></ actions ></toast>";
 
+
             while (true)
             {
                 try
