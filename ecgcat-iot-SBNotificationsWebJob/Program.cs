@@ -39,7 +39,7 @@ namespace ecgcat_iot_SBNotificationsWebJob
         {
             Microsoft.ServiceBus.NamespaceManager namespaceManager = Microsoft.ServiceBus.NamespaceManager.Create();
             TopicDescription myTopic = namespaceManager.GetTopic("tempdata");
-           // SubscriptionDescription myAgentSubscription = namespaceManager.CreateSubscription(myTopic.Path, "AgentSubscription");
+            //SubscriptionDescription myAgentSubscription = namespaceManager.CreateSubscription(myTopic.Path, "AgentSubscription");
 
         }
         private static void ReceiveAndNotify()
