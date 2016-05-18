@@ -47,7 +47,14 @@ namespace ecgcat_iot_SBNotificationsWebJob
             SubscriptionClient agentSubscriptionClient = SubscriptionClient.Create("tempdata", "AgentSubscription");
             BrokeredMessage message = null;
 
-            var toastMessage = @"<toast><visual><binding template=""ToastGeneric""><text id=""1"">{messagepayload}</text></binding></visual><actions><action activationType=""foreground"" content=""Details"" arguments=""details"" />< action activationType = ""background"" content = ""Attempt Fix"" arguments = ""attemptfix"" /></ actions ></toast>";
+            var toastMessage = @"<toast activationType='foreground' launch='args'>
+<visual><binding template=""ToastGeneric"">
+    <text id=""1"">{messagepayload}</text>
+</binding></visual>
+<actions>
+    <action content='Dismiss' activationType='foreground' arguments='check'/>
+    <action content='Take Action' activationType='foreground' arguments='cancel'/>
+</actions></toast>";
 
             while (true)
             {
